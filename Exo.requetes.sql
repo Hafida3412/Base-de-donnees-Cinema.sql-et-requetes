@@ -80,8 +80,16 @@ GROUP BY sexe
 
 
 /*exo.k: Liste des acteurs ayant plus de 50 ans (âge révolu et non révolu) */
-
-
+SELECT CONCAT(prenom,' ',nom, ' ', date_naissance) AS acteur 
+FROM acteur 
+JOIN personne ON acteur.id_personne = personne.id_personne 
+WHERE YEAR(NOW())-YEAR(date_naissance) > 50
 
 
 /*exo.l: Acteurs ayant joué dans 3 films ou plus */
+SELECT CONCAT(prenom, ' ', nom) AS acteur
+FROM acteur 
+INNER JOIN personne 
+ON acteur.id_personne = personne.id_personne 
+GROUP BY CONCAT(prenom, ' ', nom) 
+HAVING COUNT(id_acteur) >= 1;
