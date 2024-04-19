@@ -40,11 +40,11 @@ INNER JOIN film
 ON realisateur.id_realisateur = film.id_realisateur 
 INNER JOIN personne 
 ON realisateur.id_personne = personne.id_personne
-GROUP BY Realisateur ORDER BY Nb_films DESC;
+GROUP BY realisateur ORDER BY Nb_films DESC;
 
 
 /*exo.f: Casting d'un film en particulier (id_film): nom, prénom des acteurs + sexe */
-SELECT personne.nom, personne.prenom, personne.sexe FROM personne
+SELECT CONCAT(nom, ' ', prenom), personne.sexe FROM personne
 INNER JOIN acteur 
 ON personne.id_personne = acteur.id_personne
 INNER JOIN jouer 
@@ -62,7 +62,7 @@ ORDER BY annee_sortie_france DESC;
 
 
 /*exo.h: Liste des acteurs qui sont à la fois acteurs et réalisateurs */
-SELECT personne.nom, personne.prenom FROM personne 
+SELECT CONCAT(nom, ' ', prenom) FROM personne 
 INNER JOIN acteur ON personne.id_personne = acteur.id_personne 
 INNER JOIN realisateur ON personne.id_personne = realisateur.id_personne;
 
@@ -80,7 +80,7 @@ GROUP BY sexe
 
 
 /*exo.k: Liste des acteurs ayant plus de 50 ans (âge révolu et non révolu) */
-SELECT CONCAT(prenom,' ',nom, ' ', date_naissance) AS acteur 
+SELECT CONCAT(prenom,' ',nom, ' '), date_naissance AS acteur 
 FROM acteur 
 INNER JOIN personne ON acteur.id_personne = personne.id_personne 
 WHERE YEAR(NOW())-YEAR(date_naissance) > 50
